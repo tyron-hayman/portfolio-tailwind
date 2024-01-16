@@ -1,5 +1,61 @@
+.example-1 {
+  overflow: hidden;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 body {
   background: #ffffff;
   font-family: "DM Sans", sans-serif !important;
   font-size: 16px !important;
+}
+
+#header {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 1.5%;
+}
+#header #header-logo a {
+  font-weight: 1000;
+  font-size: 1.2rem;
+}
+#header #mainNav {
+  display: flex;
+}
+#header #mainNav a {
+  font-size: 1.2rem;
+  display: inline-block;
+  padding: 5px 20px;
+  text-decoration: none;
+  border-radius: 9999px;
+  -webkit-border-radius: 9999px;
+  -moz-border-radius: 9999px;
+  -o-border-radius: 9999px;
+  transition: all 0.35s;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  -o-transition: all 0.35s;
+  background: #ffffff;
+  color: #000000;
+  border: #ffffff 1px solid;
+  margin-left: 10px;
+}
+#header #mainNav a:hover {
+  border-color: #000000;
+}
+#header #mainNav a.active {
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+.mainContainer {
+  margin-top: 150px;
 }/*# sourceMappingURL=global.css.map */

@@ -3,3 +3,17 @@ $black  : #000000;
 $white  : #ffffff;
 
 // Mixins
+
+@mixin borderRadius($method) {
+    border-radius: $method;
+    -webkit-border-radius: $method;
+    -moz-border-radius: $method;
+    -o-border-radius: $method;
+}
+
+@mixin transition-normal($method) {
+    transition: $method;
+    -webkit-transition: $method;
+    -moz-transition: $method;
+    -o-transition: $method;
+}

@@ -1,9 +1,63 @@
 @import "variables";
 
+// Page Transitions
+
+.example-1 {
+    overflow: hidden;
+  }
+
 // Global styles
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
 
 body {
     background: $white;
     font-family: 'DM Sans', sans-serif!important;
     font-size: 16px!important;
+}
+
+#header {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 1.5%;
+    #header-logo {
+        a {
+            font-weight: 1000;
+            font-size: 1.2rem;
+        }
+    }
+    #mainNav {
+        display: flex;
+        a {
+            font-size: 1.2rem;
+            display: inline-block;
+            padding: 5px 20px;
+            text-decoration: none;
+            @include borderRadius(9999px);
+            @include transition-normal(all 0.35s);
+            background: $white;
+            color: $black;
+            border: $white 1px solid;
+            margin-left: 10px;
+            &:hover {
+                border-color: $black;
+            }
+            &.active {
+                border-color: $black;
+                background: $black;
+                color: $white;
+            }
+        }
+    }
+}
+
+.mainContainer {
+    margin-top: 150px;
 }
