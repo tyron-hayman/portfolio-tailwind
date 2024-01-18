@@ -1,6 +1,11 @@
 // Branding
-$black  : #000000;
-$white  : #ffffff;
+$black      : #000000;
+$white      : #ffffff;
+$cream      : #edf2f4;
+$red        : #ef233c;
+$blueLight  : #a8dadc;
+$blueMed    : #457b9d;
+$blueDark   : #2b2d42;
 
 // Mixins
 
@@ -16,4 +21,11 @@ $white  : #ffffff;
     -webkit-transition: $method;
     -moz-transition: $method;
     -o-transition: $method;
+}
+
+@mixin transform($method) {
+    transform: $method;
+    -webkit-transform: $method;
+    -moz-transform: $method;
+    -o-transform: $method;
 }
