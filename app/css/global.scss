@@ -6,7 +6,25 @@
     overflow: hidden;
   }
 
+// Typography
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Sans', sans-serif!important;
+    font-weight: 1000;
+}
+
+p {
+    font-size: 1.4rem;
+    line-height: 2.6rem;
+    color: $blueDark;
+    font-weight: 400;
+}
+
 // Global styles
+
+html {
+    scroll-behavior: smooth;
+}
 
 * {
     -webkit-font-smoothing: antialiased;
@@ -41,7 +59,7 @@ body {
             padding: 5px 20px;
             text-decoration: none;
             @include borderRadius(9999px);
-            @include transition-normal(all 0.35s);
+            @include transition(all 0.35s);
             background: $white;
             color: $black;
             border: $white 1px solid;
@@ -62,23 +80,17 @@ body {
     margin-top: 100px;
 }
 
-.animateThis {
-    opacity: 0;
-}
-
 // Home page
 
-.landingRow {
+.landingSection {
     text-align: center;
     img {
-        @include borderRadius(50%);
         display: block;
         margin: 0 auto 50px auto;
     }
     h1 {
         font-size: 6rem;
         color: $blueDark;
-        font-weight: 1000;
         line-height: 6.5rem;
         display: block;
         width: 70%;
@@ -86,21 +98,84 @@ body {
         margin: 20px auto;
     }
     h2 {
+        font-family: 'DM Sans', sans-serif!important;
         font-size: 1rem;
         color: $white;
         font-weight: 400;
         background: $blueDark;
         display: inline-block;
         padding: 5px 25px;
-        @include borderRadius(9999px);
     }
-    h3 {
-        font-size: 1.3rem;
-        line-height: 2.3rem;
-        color: $blueDark;
-        font-weight: 400;
+    p {
         width: 50%;
         padding: 0;
         margin: 0 auto;
+    }
+}
+
+.projectsSection {
+    width: 1200px;
+    margin: 300px auto;
+    h2 {
+        font-size: 3rem;
+        color: $blueDark;
+        line-height: 4.3rem;
+        text-align: center;
+        opacity: 0;
+        width: 70%;
+        margin: 0 auto;
+        @include transition(all 1s);
+        @include transform(translateY(100px));
+        &.inView {
+            opacity: 1;
+            @include transform(translateY(0px));
+        }
+    }
+    .projectBoxes {
+        overflow: hidden;
+        position: relative;
+        height: 400px;
+        .projectImg {
+            @include backgroundSize(cover!important);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            @include transform(scale(2) rotate(-20deg));
+        }
+        .projectInfo {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 100%;
+            padding: 5%;
+            h3 {
+                font-size: 2rem;
+                font-weight: 400;
+            }
+            p {
+                font-size: 0.9rem;
+                line-height: 1.4rem;
+            }
+        }
+        .projectTags {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 3;
+            padding: 5%;
+            ul {
+                display: flex;
+                li {
+                    background: $red;
+                    padding: 2px 10px;
+                    color: $white;
+                    font-size: 1rem;
+                }
+            }
+        }
     }
 }

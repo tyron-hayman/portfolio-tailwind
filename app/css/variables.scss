@@ -16,7 +16,7 @@ $blueDark   : #2b2d42;
     -o-border-radius: $method;
 }
 
-@mixin transition-normal($method) {
+@mixin transition($method) {
     transition: $method;
     -webkit-transition: $method;
     -moz-transition: $method;
@@ -28,4 +28,11 @@ $blueDark   : #2b2d42;
     -webkit-transform: $method;
     -moz-transform: $method;
     -o-transform: $method;
+}
+
+@mixin backgroundSize($method) {
+    background-size: $method;
+    -webkit-background-size: $method;
+    -moz-background-size: $method;
+    -o-background-size: $method;
 }
