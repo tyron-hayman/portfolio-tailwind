@@ -1,7 +1,9 @@
 'use client'; 
 import Image from 'next/image'
-import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 const projectList = [
     {
@@ -75,9 +77,9 @@ export default function Projects() {
 
                     return(
                         <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass}>
-                            <div className='projectImg' style={styles}></div>
+                            <motion.div className='projectImg' style={styles}></motion.div>
                             <div className='projectInfo bg-gradient-to-t from-60% from-white'>
-                                <h3>{project.name}</h3>
+                                <div className='projectInfoHeading'><h3>{project.name}</h3></div>
                                 <p>{project.content}</p>
                             </div>
                             <div className='projectTags'>
