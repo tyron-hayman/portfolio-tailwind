@@ -13,17 +13,18 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 1000;
 }
 
-p {
-    font-size: 1.4rem;
-    line-height: 2.6rem;
-    color: $blueDark;
+p, li {
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+    color: $white;
     font-weight: 400;
 }
 
 // Global styles
 
-html {
+html, body {
     scroll-behavior: smooth;
+    background: $black;
 }
 
 * {
@@ -33,152 +34,182 @@ html {
 }
 
 body {
-    background: $cream ;
     font-family: 'DM Sans', sans-serif!important;
     font-size: 16px!important;
 }
 
-#header {
-    position: absolute;
-    z-index: 9999;
+#noiseBG {
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
+    bottom: 0;
+    z-index: 100;
+    background: url('/noise.png');
+    opacity: 0.6;
+    @include animate(noise .09s infinite);
+    @include transform(translateZ(0));
+    pointer-events: none;
+}
+
+#header {
+    width: 100%;
     padding: 1.5%;
+    position: fixed;
+    z-index: 99;
     #header-logo {
         a {
             font-weight: 1000;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            color: $white;
         }
     }
     #mainNav {
         display: flex;
         a {
-            font-size: 1.2rem;
+            font-size: 1rem;
             display: inline-block;
             padding: 5px 20px;
             text-decoration: none;
-            @include borderRadius(9999px);
             @include transition(all 0.35s);
-            background: $white;
-            color: $black;
-            border: $white 1px solid;
+            color: $white;
             margin-left: 10px;
             &:hover {
-                border-color: $black;
+                background: $white;
+                color: $black;
             }
             &.active {
-                border-color: $black;
-                background: $black;
-                color: $white;
+                background: $white;
+                color: $black;
             }
         }
     }
 }
 
-.mainContainer {
-    margin-top: 100px;
+#footer-wrap {
+    padding: 1.5%;
+    p {
+        font-size: 1rem;
+        line-height: 1;
+        color: $white;
+        margin: 0;
+    }
+    .footerBtn {
+        color: $white;
+        background: $red;
+    }
+    #footerLeft {
+        a {
+            display: inline-block;
+            margin: 0;
+            padding: 5px 15px;
+            background: $red;
+            color: $white;
+            margin-left: 10px;
+        }
+    }
 }
 
 // Home page
 
-.landingSection {
-    text-align: center;
-    img {
-        display: block;
-        margin: 0 auto 50px auto;
-    }
+#landingWrap {
+    position: relative;
+    z-index: 2;
     h1 {
-        font-size: 6rem;
-        color: $blueDark;
-        line-height: 6.5rem;
-        display: block;
-        width: 70%;
+        font-size: 20rem;
+        line-height: 1;
+        letter-spacing: -10px;
+        color: $white;
+        margin: 0;
         padding: 0;
-        margin: 20px auto;
+        span {
+            margin-right: 0;
+            display: inline-block;
+        }
     }
     h2 {
-        font-family: 'DM Sans', sans-serif!important;
-        font-size: 1rem;
+        font-size: 5rem;
+        line-height: 1;
         color: $white;
-        font-weight: 400;
-        background: $blueDark;
-        display: inline-block;
-        padding: 5px 25px;
-    }
-    p {
-        width: 50%;
+        margin: 0;
         padding: 0;
-        margin: 0 auto;
+        span {
+            margin-right: 20px;
+            display: inline-block;
+        }
     }
 }
 
-.projectsSection {
-    width: 1200px;
-    margin: 300px auto;
-    h2 {
-        font-size: 3rem;
-        color: $blueDark;
-        line-height: 4.3rem;
-        text-align: center;
-        opacity: 0;
-        width: 70%;
-        margin: 0 auto;
-        @include transition(all 1s);
-        @include transform(translateY(100px));
-        &.inView {
-            opacity: 1;
-            @include transform(translateY(0px));
+#aboutWrap {
+    h3 {
+        font-size: 2rem;
+        line-height: 3rem;
+        color: $white;
+        font-weight: 400;
+        margin-bottom: 50px;
+    }
+    h4 {
+        font-size: 1rem;
+        line-height: 1;
+        color: $grey ;
+        font-weight: 1000;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+    }
+    li {
+        list-style: numeral;
+    }
+}
+
+
+// Projects
+
+#projectsWrap {
+    position: relative;
+    z-index: 2;
+    padding-top: 200px;
+    h1 {
+        font-size: 5rem;
+        color: $white;
+        line-height: 1;
+        span {
+            display: inline-block;
+        }
+    }
+    p {
+        span {
+            display: inline-block;
         }
     }
     .projectBoxes {
-        overflow: hidden;
         position: relative;
-        height: 400px;
+        height: 25vw;
+        margin-bottom: 50px;
+        background: $white;
+        overflow: hidden;
+        h3 {
+            font-size: 4rem;
+            line-height: 4rem;
+            color: $black;
+            letter-spacing: -5px;
+        }
         .projectImg {
-            @include backgroundSize(cover!important);
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
             width: 100%;
             z-index: 1;
-            @include transform(scale(2) rotate(-20deg));
+            @include backgroundSize(cover!important);
+            @include transform(scale(1.5) rotateZ(-20deg));
         }
         .projectInfo {
             position: absolute;
             left: 0;
             bottom: 0;
-            z-index: 2;
             width: 100%;
-            padding: 5%;
-            .projectInfoHeading {
-                h3 {
-                    font-size: 2rem;
-                    font-weight: 400;
-                }
-            }
-            p {
-                font-size: 1rem;
-                line-height: 2rem;
-            }
-        }
-        .projectTags {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 3;
-            padding: 5%;
-            ul {
-                display: flex;
-                li {
-                    background: $red;
-                    padding: 2px 10px;
-                    color: $white;
-                    font-size: 1rem;
-                    margin-left: 10px;
-                }
-            }
+            padding: 2%;
+            z-index: 2;
         }
     }
 }
