@@ -1,8 +1,10 @@
 'use client'; 
 import Image from 'next/image'
 import Projects from "./components/projects";
-import { motion, useAnimate, stagger, animate, useInView  } from "framer-motion";
+import { motion, useTransform, stagger, animate, useInView, useScroll, useSpring, useMotionValue, useMotionTemplate  } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 const projectList = [
   {
@@ -33,7 +35,7 @@ const projectList = [
 
 function BuildSection({ sectionID, animateThis, onlyOnce, children }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: onlyOnce, amount : 0.7 });
+  const isInView = useInView(ref, { once: onlyOnce, amount : 0.5 });
 
   const scrollVariants = {
     active: {
@@ -81,7 +83,7 @@ function BuildSection({ sectionID, animateThis, onlyOnce, children }) {
 
 export default function Home() {
 
-  const hello = "H E L L O";
+  const hello = "h e l l o";
   const landingHeading = "I build things for the web.";
   const skillsList = ["HTML / CSS", "JavaScript", "ReactJS / NextJS", "SCSS / Tailwind", "PHP", "WordPress"];
   const helloArr = hello.split(" ");
@@ -90,7 +92,30 @@ export default function Home() {
   // About
   const ref = useRef(null);
   const refA = useRef(null);
-  const isInView = useInView(ref, { once: true, amount : 0.7 });
+  const refH2 = useRef(null);
+  const isInView = useInView(ref, { once: true, amount : 0.5 });
+  const isInViewH2 = useInView(refH2, { once: true, amount : 1 });
+
+  const pointX = useMotionValue(0);
+  const pointY = useMotionValue(0);
+
+  const pointTransform = useMotionTemplate`
+      translate(50px, -50%)
+      translate(${pointX}px, ${pointY}px)
+  `;
+
+  useEffect(() => {
+    const updadeMousePosition = (event) => {
+        pointX.set(event.clientX);
+        pointY.set(event.clientY);
+      };
+
+      document.addEventListener("mousemove", updadeMousePosition);
+      
+      return () => {
+        document.removeEventListener("mousemove", updadeMousePosition);
+      };
+}, []);
 
 
   // Landing Motion
@@ -120,20 +145,55 @@ export default function Home() {
     }
   }
 
-  let viewCLass, animateCLass;
+  let viewCLass, animateCLass, animateCLassH2;
                   
   if ( isInView ) {
       animateCLass = "active";
   } else {
       animateCLass = "inactive";
   }
-  
 
-  useEffect(() => {
-  }, []);
+  const { scrollY, scrollYProgress } = useScroll();
+  const opacity = useTransform(
+    scrollY,
+    // Map x from these values:
+    [0, 500],
+    // Into these values:
+    [1, 0]
+  );
+  const moveY = useTransform(
+    scrollY,
+    // Map x from these values:
+    [0, 500],
+    // Into these values:
+    [0, -250]
+  );
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  if ( isInViewH2 ) {
+    animateCLassH2 = "active";
+  } else {
+    animateCLassH2 = "inactive";
+  }
+
+  let showImage = (element : any ) => {
+    let target = document.getElementById(element);
+    target?.classList.add("show");
+  }
+
+  let hideImage = (element : any) => {
+    let target = document.getElementById(element);
+    target?.classList.remove("show");
+  }
 
   return (
     <>
+      <div id="scrollProgressWrap" className='rounded-lg'><motion.div id='scrollProgress' className="progress-bar" style={{ scaleY }} /></div>
       <div id='mainContainer'>
           <motion.div id="landingWrap" className='container mx-auto h-dvh grid grid-cols-1 content-center'>
             <h1>
@@ -148,6 +208,7 @@ export default function Home() {
             })}
             </h2>
           </motion.div >
+          <motion.div id="profileImage" className='grayscale' style={{ opacity : opacity, y : moveY }}></motion.div>
           <motion.div id="aboutWrap" className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
             <motion.div id="aboutContent" className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
               <h3>I am a seasoned web developer based in the vibrant city of Vancouver, BC, Canada, with a rich experience spanning over a decade in the ever-evolving digital landscape.</h3>
@@ -174,6 +235,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
           <BuildSection sectionID="projectsWrap" animateThis={false} onlyOnce={true}>
+          <motion.h2 ref={refH2} variants={scrollVariants} animate={animateCLassH2}>Recent Work</motion.h2>
           {projectList.map((project, i) => {
                     const ref = useRef(null);
                     const isInView = useInView(ref, { once: true, amount : 1 });
@@ -195,29 +257,30 @@ export default function Home() {
                     let viewCLass, animateCLass;
                   
                       if ( isInView ) {
-                          viewCLass = "projectBoxes basis-1/2 rounded-lg inView grayscale hover:grayscale-0";
+                          viewCLass = "projectBoxes inView";
                           animateCLass = "active";
                       } else {
-                          viewCLass = "projectBoxes basis-1/2 rounded-lg grayscale hover:grayscale-0";
+                          viewCLass = "projectBoxes";
                           animateCLass = "inactive";
                       }
-                    
+
+                    let proParentStyles = {
+                        transform: pointTransform
+                    };
+
                     let styles = {
                         "background" : `url(${project.image}) center center no-repeat`
                     };
 
                     return(
-                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass}>
-                            <motion.div className='projectImg' style={styles}></motion.div>
-                            <div className='projectInfo'>
-                                <div className='projectInfoHeading'><h3>{project.name}</h3></div>
-                            </div>
-                            <div className='projectTags'>
-                                <ul>
-                                    <li className='rounded-full'>{project.method}</li>
-                                </ul>
-                            </div>
+                      <>
+                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass} onMouseMove={() => showImage(`proImage${i}`)} onMouseLeave={() => hideImage(`proImage${i}`)}>
+                            <div><h4>{project.method}</h4>
+                            <h3>{project.name}</h3></div>
+                            <div><h5><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></h5></div>
                         </motion.div>
+                        <motion.div id={`proImage${i}`} className="bgImageHover" style={proParentStyles}><div className="bgImageHoverImage" style={styles}></div></motion.div>
+                        </>
                     );
                 })}
           </BuildSection>

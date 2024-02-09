@@ -2,13 +2,21 @@
 import Head from "next/head";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
-import { motion, useAnimate, stagger, animate  } from "framer-motion";
+import { motion, useAnimate, stagger, animate, useMotionValue, useMotionTemplate  } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
-    const router = useRouter()
+    const pointX = useMotionValue(0);
+    const pointY = useMotionValue(0);
+
+    const pointTransform = useMotionTemplate`
+        translate(-50%, -50%)
+        translate(${pointX}px, ${pointY}px)
+    `;
+
+    const router = useRouter();
     const variants = {
         visible: () => ({
           opacity: 1,
@@ -19,14 +27,27 @@ export default function Header() {
       }
       const initial = { opacity : 0, y : -30, filter: "blur(10px)"  };
 
+      useEffect(() => {
+        const updadeMousePosition = (event) => {
+            pointX.set(event.clientX);
+            pointY.set(event.clientY);
+          };
+      
+          document.addEventListener("mousemove", updadeMousePosition);
+      
+          return () => {
+            document.removeEventListener("mousemove", updadeMousePosition);
+          };
+    }, []);
+
     return (
         <>
+        <motion.div id="cursorFriend" style={{ transform: pointTransform }}></motion.div>
         <div id="noiseBG"></div>
-        <motion.div id="header" className="flex justify-between content-center" initial={initial} animate="visible" variants={variants}>
-            <div id="header-logo"><Link href="/" scroll={false}><FontAwesomeIcon icon={faCodeBranch} /></Link></div>
+        <motion.div id="header" className="flex justify-between content-center backdrop-blur-md" initial={initial} animate="visible" variants={variants}>
+            <div id="header-logo"><Link href="/" scroll={false}>Tyron Hayman</Link></div>
             <div id="mainNav">
-                <Link href="/" className="link-items active rounded-full" scroll={false}>Home</Link>
-                <Link href="/projects" className="link-items rounded-full" scroll={false}>Recent Work</Link>
+                <Link href="mailto:tyron.hayman@gmail.com" className="link-items active rounded-full" scroll={false}>Contact Me</Link>
             </div>
         </motion.div>
         </>

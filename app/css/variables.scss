@@ -1,9 +1,9 @@
 // Branding
-$black      : #080808;
+$black      : #131313;
 $grey       : rgba(255,255,255,0.3);
 $white      : #ffffff;
 $cream      : #edf2f4;
-$red        : #ef233c;
+$red        : #ff5454;
 $blueLight  : #a8dadc;
 $blueMed    : #457b9d;
 $blueDark   : #2b2d42;
@@ -22,6 +22,13 @@ $blueDark   : #2b2d42;
     -webkit-transition: $method;
     -moz-transition: $method;
     -o-transition: $method;
+}
+
+@mixin webfix($method, $value) {
+    $method: $value;
+    -webkit-#{$method}: $value;
+    -moz-#{$method}: $value;
+    -o-#{$method}: $value;
 }
 
 @mixin transform($method) {

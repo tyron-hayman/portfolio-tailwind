@@ -14,8 +14,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, li {
-    font-size: 1.3rem;
-    line-height: 2.3rem;
+    font-size: 1.2rem;
+    line-height: 2.2rem;
     color: $white;
     font-weight: 400;
 }
@@ -36,6 +36,20 @@ html, body {
 body {
     font-family: 'DM Sans', sans-serif!important;
     font-size: 16px!important;
+}
+
+#cursorFriend {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: none;
+    border: $red 2px solid;
+    width: 50px;
+    height: 50px;
+    @include borderRadius(50%);
+    z-index: 999;
+    pointer-events: none;
+    @include transition(0.2s ease-out)
 }
 
 #noiseBG {
@@ -60,8 +74,9 @@ body {
     #header-logo {
         a {
             font-weight: 1000;
-            font-size: 1.4rem;
+            font-size: 1rem;
             color: $white;
+            text-transform: uppercase;
         }
     }
     #mainNav {
@@ -110,15 +125,39 @@ body {
     }
 }
 
+#scrollProgressWrap {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    @include transform(translateY(-50%));
+    z-index: 10;
+    height: 400px;
+    width: 5px;
+    background: rgba(255,255,255,0.1);
+    overflow: hidden;
+    #scrollProgress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.5);
+        width: 100%;
+        transform-origin: 0%;
+        -webkit-transform-origin: 0%;
+    }
+}
+
 // Home page
 
 #landingWrap {
     position: relative;
     z-index: 2;
     h1 {
-        font-size: 20rem;
+        font-family: 'DM Serif Display', serif!important;
+        font-weight: 400;
+        font-size: 25rem;
         line-height: 1;
-        letter-spacing: -10px;
         color: $white;
         margin: 0;
         padding: 0;
@@ -140,7 +179,20 @@ body {
     }
 }
 
+#profileImage {
+    width: 550px;
+    height: 550px;
+    background: url("/me.jpg") center center no-repeat;
+    @include backgroundSize(cover!important);
+    @include borderRadius(50%);
+    position: fixed;
+    left: 55%;
+    top: 25%;
+    z-index: 1;
+}
+
 #aboutWrap {
+    padding-top: 300px;
     h3 {
         font-size: 2rem;
         line-height: 3rem;
@@ -167,7 +219,8 @@ body {
 #projectsWrap {
     position: relative;
     z-index: 2;
-    padding-top: 200px;
+    padding-top: 300px;
+    padding-bottom: 300px;
     h1 {
         font-size: 5rem;
         color: $white;
@@ -176,40 +229,84 @@ body {
             display: inline-block;
         }
     }
+    h2 {
+        font-size: 2rem;
+        line-height: 1;
+        color: $white;
+        margin-bottom: 50px;
+    }
     p {
         span {
             display: inline-block;
         }
     }
-    .projectBoxes {
-        position: relative;
-        height: 25vw;
-        margin-bottom: 50px;
-        background: $white;
-        overflow: hidden;
-        h3 {
-            font-size: 4rem;
-            line-height: 4rem;
-            color: $black;
-            letter-spacing: -5px;
+    h3 {
+        font-size: 4rem;
+        line-height: 4rem;
+        color: $white;
+        margin-bottom: 30px;
+        @include transition(all 0.35s ease-in-out);
+    }
+    h4 {
+        font-size: 1.5rem;
+        line-height: 1;
+        color: $grey;
+    }
+    h5 {
+        font-size: 1.5rem;
+        line-height: 1;
+        color: $grey;
+    }
+    ul {
+        display: flex;
+        li {
+            display: inline-block;
+            list-style: none;
+            @include borderRadius(9999px);
+            background: $blueDark;
+            padding: 0px 10px;
+            margin: 0 5px 5px 0;
+            color: $white;
+            font-size: 0.8rem;
         }
-        .projectImg {
+    }
+    .projectBoxes {
+        border-top: $grey 1px solid;
+        position: relative;
+        z-index: 2;
+        padding: 50px 0;
+        display: flex;
+        flex-direction: wrap;
+        justify-content: space-between;
+        align-items: center;
+        &:hover {
+            h3 {
+                color: $red;
+            }
+        }
+    }
+    .bgImageHover {
+        position: fixed;
+        width: 600px;
+        height: 400px;
+        left: 0;
+        top: 0;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        @include transition(all 0.35s);
+        .bgImageHoverImage {
+            @include backgroundSize(cover!important);
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 100%;
-            z-index: 1;
-            @include backgroundSize(cover!important);
-            @include transform(scale(1.5) rotateZ(-20deg));
+            right: 0;
+            @include transform(scale(2) rotateZ(-15deg));
         }
-        .projectInfo {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            padding: 2%;
-            z-index: 2;
+        &.show {
+            opacity: 1;
         }
     }
 }
