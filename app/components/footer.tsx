@@ -3,12 +3,16 @@ import Head from "next/head";
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
-import { motion, useAnimate, stagger, animate  } from "framer-motion";
+import { useRef } from "react";
+import { motion, useAnimate, stagger, animate, useInView  } from "framer-motion";
+
 
 export default function Footer({ cssposition }) {
     let curDate = new Date();
     let year = curDate.getFullYear();
-    let footerStyle;
+    let footerStyle, animateCLass;
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, amount : 0.5 });
 
     const variants = {
         visible: () => ({
@@ -33,7 +37,33 @@ export default function Footer({ cssposition }) {
         }
     }
 
+    const scrollVariants = {
+        active: {
+            y: 0,
+            opacity : 1,
+            filter: "blur(0px)",
+            transition: { duration: 0.75 }
+        },
+        inactive: {
+            y: 100,
+            opacity : 0,
+            filter: "blur(20px)",
+            transition: { duration: 0.75 }
+        }
+      }
+
+    if ( isInView ) {
+        animateCLass = "active";
+    } else {
+        animateCLass = "inactive";
+    }
+
     return (
+        <>
+        <motion.div id="footer-contact" ref={ref} initial={initial} animate={animateCLass} variants={scrollVariants}>
+            <p>Have a full time opportunity or want to collaborate on a project?</p>
+            <h2><Link href="mailto:tyron.hayman@gmail.com">Get In Touch</Link></h2>
+        </motion.div>
         <motion.div id="footer-wrap" style={footerStyle} initial={initial} animate="visible" variants={variants}>
             <div id="footerInner" className="flex justify-between">
                 <div id="footerLeft">
@@ -44,5 +74,6 @@ export default function Footer({ cssposition }) {
                 </div>
             </div>
         </motion.div>
+        </>
     )
 };

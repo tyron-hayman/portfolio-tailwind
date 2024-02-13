@@ -33,7 +33,7 @@ const projectList = [
   }
 ];
 
-function BuildSection({ sectionID, animateThis, onlyOnce, children }) {
+function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: onlyOnce, amount : 0.5 });
 
@@ -105,7 +105,7 @@ export default function Home() {
   `;
 
   useEffect(() => {
-    const updadeMousePosition = (event) => {
+    const updadeMousePosition = (event : any ) => {
         pointX.set(event.clientX);
         pointY.set(event.clientY);
       };
@@ -166,7 +166,7 @@ export default function Home() {
     // Map x from these values:
     [0, 500],
     // Into these values:
-    [0, -250]
+    [0, 250]
   );
 
   const scaleY = useSpring(scrollYProgress, {
@@ -207,8 +207,8 @@ export default function Home() {
               return(<motion.span className='headingWords' key={i} custom={headingInt} initial={initial} animate="visible" variants={variants}>{word}</motion.span>);
             })}
             </h2>
+            <motion.div id="profileImage" className='grayscale' style={{ opacity : opacity, y : moveY }}></motion.div>
           </motion.div >
-          <motion.div id="profileImage" className='grayscale' style={{ opacity : opacity, y : moveY }}></motion.div>
           <motion.div id="aboutWrap" className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
             <motion.div id="aboutContent" className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
               <h3>I am a seasoned web developer based in the vibrant city of Vancouver, BC, Canada, with a rich experience spanning over a decade in the ever-evolving digital landscape.</h3>

@@ -54,6 +54,24 @@ $blueDark   : #2b2d42;
 
 // Keyframes
 
+@keyframes proScale {
+    0% {
+        bottom: 0;
+    }
+    100% {
+        bottom: 100%;
+    }
+}
+
+@-webkit-keyframes proScale {
+    0% {
+        bottom: 0;
+    }
+    100% {
+        bottom: 100%;
+    }
+}
+
 @keyframes noise {
     0%,to {
         background-position: 0 0

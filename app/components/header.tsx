@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 export default function Header() {
     const pointX = useMotionValue(0);
     const pointY = useMotionValue(0);
+    const [pointOpac, setPointOpac] = useState(0);
 
     const pointTransform = useMotionTemplate`
         translate(-50%, -50%)
@@ -28,21 +29,30 @@ export default function Header() {
       const initial = { opacity : 0, y : -30, filter: "blur(10px)"  };
 
       useEffect(() => {
-        const updadeMousePosition = (event) => {
+        const updadeMousePosition = (event : any) => {
+            setPointOpac(1);
             pointX.set(event.clientX);
             pointY.set(event.clientY);
           };
+
+          const hideMouseCursor = (event : any ) => {
+            setPointOpac(0);
+            pointX.set(event.clientX);
+          };
       
           document.addEventListener("mousemove", updadeMousePosition);
+          document.addEventListener("mouseleave", hideMouseCursor);
       
           return () => {
             document.removeEventListener("mousemove", updadeMousePosition);
+            document.addEventListener("mouseleave", hideMouseCursor);
           };
     }, []);
 
     return (
         <>
-        <motion.div id="cursorFriend" style={{ transform: pointTransform }}></motion.div>
+        <motion.div id="cursorFriendDot" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
+        <motion.div id="cursorFriend" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
         <div id="noiseBG"></div>
         <motion.div id="header" className="flex justify-between content-center backdrop-blur-md" initial={initial} animate="visible" variants={variants}>
             <div id="header-logo"><Link href="/" scroll={false}>Tyron Hayman</Link></div>
