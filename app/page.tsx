@@ -4,7 +4,7 @@ import Projects from "./components/projects";
 import { motion, useTransform, stagger, animate, useInView, useScroll, useSpring, useMotionValue, useMotionTemplate  } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 const projectList = [
   {
@@ -35,7 +35,7 @@ const projectList = [
 
 function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: onlyOnce, amount : 0.5 });
+  const isInView = useInView(ref, { once: onlyOnce, amount : 0.2 });
 
   const scrollVariants = {
     active: {
@@ -93,7 +93,7 @@ export default function Home() {
   const ref = useRef(null);
   const refA = useRef(null);
   const refH2 = useRef(null);
-  const isInView = useInView(ref, { once: true, amount : 0.5 });
+  const isInView = useInView(ref, { once: true, amount : 0.2 });
   const isInViewH2 = useInView(refH2, { once: true, amount : 1 });
 
   const pointX = useMotionValue(0);
@@ -111,6 +111,17 @@ export default function Home() {
       };
 
       document.addEventListener("mousemove", updadeMousePosition);
+
+      let targets = document.getElementsByClassName('hoveredOver');
+      let cursorFriend = document.getElementById('cursorFriend');
+      for(let i = 0; i < targets.length; i++) {
+        targets[i].addEventListener("mouseover", () => {
+          cursorFriend?.classList.add("hovered");
+        });
+        targets[i].addEventListener("mouseleave", () => {
+          cursorFriend?.classList.remove("hovered");
+        });
+      }
       
       return () => {
         document.removeEventListener("mousemove", updadeMousePosition);
@@ -214,7 +225,7 @@ export default function Home() {
               <h3>I am a seasoned web developer based in the vibrant city of Vancouver, BC, Canada, with a rich experience spanning over a decade in the ever-evolving digital landscape.</h3>
               <h3>My journey in the world of web development has been nothing short of exhilarating. Over the years, I’ve had the privilege of working on diverse and challenging projects that have not only honed my skills but also fueled my passion for creating seamless and visually appealing online experiences. Vancouver’s dynamic tech scene has provided me with the perfect backdrop to thrive, inspiring me to push myself beyond my comfort zone and grow.</h3>
             </motion.div>
-            <motion.div id="aboutSkills" className='w-6/12 justify-self-end' ref={refA} variants={scrollVariants} animate={animateCLass}>
+            <motion.div id="aboutSkills" className='md:w-6/12 md:justify-self-end' ref={refA} variants={scrollVariants} animate={animateCLass}>
               <h4>My Skills</h4>
               <ul className='grid gap-4 grid-cols-2'>
               {skillsList.map((skill, i) => {
@@ -257,10 +268,10 @@ export default function Home() {
                     let viewCLass, animateCLass;
                   
                       if ( isInView ) {
-                          viewCLass = "projectBoxes inView";
+                          viewCLass = "projectBoxes hoveredOver inView";
                           animateCLass = "active";
                       } else {
-                          viewCLass = "projectBoxes";
+                          viewCLass = "projectBoxes hoveredOver";
                           animateCLass = "inactive";
                       }
 
@@ -274,7 +285,7 @@ export default function Home() {
 
                     return(
                       <>
-                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass} onMouseMove={() => showImage(`proImage${i}`)} onMouseLeave={() => hideImage(`proImage${i}`)}>
+                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass} onMouseMove={() => showImage(`proImage${i}`)} onMouseLeave={() => hideImage(`proImage${i}`)} onClick={() => window.open(project.link)}>
                             <div><h4>{project.method}</h4>
                             <h3>{project.name}</h3></div>
                             <div><h5><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></h5></div>

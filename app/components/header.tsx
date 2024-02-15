@@ -51,7 +51,6 @@ export default function Header() {
 
     return (
         <>
-        <motion.div id="cursorFriendDot" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
         <motion.div id="cursorFriend" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
         <div id="noiseBG"></div>
         <motion.div id="header" className="flex justify-between content-center backdrop-blur-md" initial={initial} animate="visible" variants={variants}>

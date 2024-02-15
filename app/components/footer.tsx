@@ -7,10 +7,10 @@ import { useRef } from "react";
 import { motion, useAnimate, stagger, animate, useInView  } from "framer-motion";
 
 
-export default function Footer({ cssposition }) {
+export default function Footer({ cssposition } : any ) {
     let curDate = new Date();
     let year = curDate.getFullYear();
-    let footerStyle, animateCLass;
+    let footerStyle: any, animateCLass;
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount : 0.5 });
 
