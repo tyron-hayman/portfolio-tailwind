@@ -52,11 +52,12 @@ export default function Header() {
     return (
         <>
         <motion.div id="cursorFriend" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
+        <motion.div id="cursorFriendDot" style={{ transform: pointTransform, opacity : pointOpac }}></motion.div>
         <div id="noiseBG"></div>
         <motion.div id="header" className="flex justify-between content-center backdrop-blur-md" initial={initial} animate="visible" variants={variants}>
             <div id="header-logo"><Link href="/" scroll={false}>Tyron Hayman</Link></div>
             <div id="mainNav">
-                <Link href="mailto:tyron.hayman@gmail.com" className="link-items active rounded-full" scroll={false}>Contact Me</Link>
+                <Link href="mailto:tyron.hayman@gmail.com" className="link-items active rounded-full hoveredOver" scroll={false}>Contact Me</Link>
             </div>
         </motion.div>
         </>

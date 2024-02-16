@@ -10,6 +10,12 @@ $blueDark   : #2b2d42;
 
 // Mixins
 
+@mixin gradient($color1, $color2, $direction) {
+    background: $color1; 
+    background: -webkit-linear-gradient(to $direction, $color1, $color2);
+    background: linear-gradient(to $direction, $color1, $color2);
+}
+
 @mixin borderRadius($method) {
     border-radius: $method;
     -webkit-border-radius: $method;
@@ -56,19 +62,31 @@ $blueDark   : #2b2d42;
 
 @keyframes proScale {
     0% {
-        bottom: 0;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        filter: blur(0px);
     }
     100% {
-        bottom: 100%;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        filter: blur(10px);
     }
 }
 
 @-webkit-keyframes proScale {
     0% {
-        bottom: 0;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        filter: blur(0px);
     }
     100% {
-        bottom: 100%;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        filter: blur(10px);
     }
 }
 

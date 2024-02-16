@@ -1,10 +1,16 @@
 @charset "UTF-8";
 @keyframes proScale {
   0% {
-    bottom: 0;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    filter: blur(0px);
   }
   100% {
-    bottom: 100%;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    filter: blur(10px);
   }
 }
 @keyframes noise {
@@ -65,6 +71,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  cursor: none;
 }
 
 body {
@@ -91,6 +98,24 @@ body {
   -moz-transition: 0.2s ease-out;
   -o-transition: 0.2s ease-out;
 }
+#cursorFriend:after {
+  content: "OPEN";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-family: "Bodoni Moda", serif !important;
+  font-weight: 400;
+  color: #ffffff;
+  opacity: 0;
+  transition: 0.2s ease-out;
+  -webkit-transition: 0.2s ease-out;
+  -moz-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
+}
 @media (max-width: 600px) {
   #cursorFriend {
     display: none;
@@ -98,6 +123,31 @@ body {
 }
 #cursorFriend.hovered {
   background: #ff5454;
+  width: 70px;
+  height: 70px;
+}
+#cursorFriend.hovered:after {
+  opacity: 1;
+}
+
+#cursorFriendDot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: none;
+  background: #ff5454;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  z-index: 990;
+  pointer-events: none;
+  transition: 0.2s ease-out;
+  -webkit-transition: 0.2s ease-out;
+  -moz-transition: 0.2s ease-out;
+  -o-transition: 0.2s ease-out;
 }
 
 #noiseBG {
@@ -338,6 +388,10 @@ body {
   bottom: 0;
   width: 100%;
   display: block;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
   animation: proScale 1s ease-in-out forwards 1;
   -webkit-animation: proScale 1s ease-in-out forwards 1;
 }
@@ -522,11 +576,44 @@ body {
   z-index: 3;
   pointer-events: none;
   opacity: 0;
-  overflow: hidden;
   transition: all 0.35s;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   -o-transition: all 0.35s;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  overflow: hidden;
+}
+#projectsWrap .bgImageHover .proDetails {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1.5%;
+  z-index: 4;
+  margin: 0;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: #ffffff;
+  background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+}
+#projectsWrap .bgImageHover .proDetails ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+#projectsWrap .bgImageHover .proDetails ul li {
+  background: #ffffff;
+  border-radius: 9999px;
+  -webkit-border-radius: 9999px;
+  -moz-border-radius: 9999px;
+  -o-border-radius: 9999px;
+  margin: 0 10px 0 0;
+  padding: 2px 17px;
+  color: #131313;
+  font-size: 0.8rem;
 }
 #projectsWrap .bgImageHover .bgImageHoverImage {
   background-size: cover !important;
@@ -538,10 +625,11 @@ body {
   top: 0;
   bottom: 0;
   right: 0;
-  transform: scale(2) rotateZ(-15deg);
-  -webkit-transform: scale(2) rotateZ(-15deg);
-  -moz-transform: scale(2) rotateZ(-15deg);
-  -o-transform: scale(2) rotateZ(-15deg);
+  transform: scale(1.8) rotateZ(-15deg);
+  -webkit-transform: scale(1.8) rotateZ(-15deg);
+  -moz-transform: scale(1.8) rotateZ(-15deg);
+  -o-transform: scale(1.8) rotateZ(-15deg);
+  z-index: 2;
 }
 #projectsWrap .bgImageHover.show {
   opacity: 1;

@@ -180,6 +180,22 @@ export default function Home() {
     [0, 250]
   );
 
+  const mouseMoveX = useTransform(
+    pointX,
+    // Map x from these values:
+    [0, 600],
+    // Into these values:
+    [0, 200]
+  );
+
+  const mouseMoveY = useTransform(
+    pointY,
+    // Map x from these values:
+    [0, 600],
+    // Into these values:
+    [0, 200]
+  );
+
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -290,7 +306,16 @@ export default function Home() {
                             <h3>{project.name}</h3></div>
                             <div><h5><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></h5></div>
                         </motion.div>
-                        <motion.div id={`proImage${i}`} className="bgImageHover" style={proParentStyles}><div className="bgImageHoverImage" style={styles}></div></motion.div>
+                        <motion.div id={`proImage${i}`} className="bgImageHover" style={proParentStyles}><div className="bgImageHoverImage" style={styles}></div>
+                         <div className='proDetails'>
+                            <ul>
+                            {techStack.map((tech, i) => {
+                              headingInt++;
+                              return(<li key={i} className='shadow-lg'>{tech}</li>);
+                            })}
+                            </ul>
+                          </div>
+                        </motion.div>
                         </>
                     );
                 })}
