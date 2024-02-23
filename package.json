@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.9.0-rc.0",
     "@apollo/experimental-nextjs-app-support": "^0.6.0",
+    "@ashthornton/asscroll": "^2.0.11",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
@@ -21,7 +22,9 @@
     "locomotive-scroll": "^4.1.4",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18",
+    "smooth-scrollbar": "^8.8.4"
   },
   "devDependencies": {
     "@types/locomotive-scroll": "^4.1.3",

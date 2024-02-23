@@ -67,7 +67,7 @@ export default function Footer({ cssposition } : any ) {
         <motion.div id="footer-wrap" style={footerStyle} initial={initial} animate="visible" variants={variants}>
             <div id="footerInner" className="flex justify-between">
                 <div id="footerLeft">
-                    <p>I am availbe for full time work <motion.a className="rounded-full hoveredOver" href="mailto:tyron.hayman@gmail.com" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>Get In Touch</motion.a></p>
+                    <p>Pushing pixels since 2012</p>
                 </div>
                 <div id="footerRight">
                     <p>&copy; {year}</p>

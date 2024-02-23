@@ -5,6 +5,13 @@ import { motion, useTransform, stagger, animate, useInView, useScroll, useSpring
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import LinkedinRecommend from './components/LinkedinRecommendation';
+import {isMobile} from 'react-device-detect';
+
+let aniAmout : any = "some";
+if (isMobile) {
+  aniAmout = "some";
+}
 
 const projectList = [
   {
@@ -35,7 +42,7 @@ const projectList = [
 
 function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: onlyOnce, amount : 0.2 });
+  const isInView = useInView(ref, { once: onlyOnce, amount : aniAmout });
 
   const scrollVariants = {
     active: {
@@ -63,14 +70,14 @@ function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
   if ( animateThis ) {
     return (
       <div id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
-        <motion.div className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
+        <motion.div key={sectionID} className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
           {children}
         </motion.div>
       </div>
     );
   } else {
     return (
-      <div id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
+      <div key={sectionID} id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
         <motion.div className='w-full'>
           {children}
         </motion.div>
@@ -82,6 +89,9 @@ function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
 
 
 export default function Home() {
+  const [loading, setLoading] = useState("unloaded");
+  const [proBox, setProBox] = useState("hide");
+  const [proBoxDetails, setProBoxDetails] = useState<any[]>([]);
 
   const hello = "h e l l o";
   const landingHeading = "I build things for the web.";
@@ -93,8 +103,8 @@ export default function Home() {
   const ref = useRef(null);
   const refA = useRef(null);
   const refH2 = useRef(null);
-  const isInView = useInView(ref, { once: true, amount : 0.2 });
-  const isInViewH2 = useInView(refH2, { once: true, amount : 1 });
+  const isInView = useInView(ref, { once: true, amount : aniAmout });
+  const isInViewH2 = useInView(refH2, { once: true, amount : aniAmout });
 
   const pointX = useMotionValue(0);
   const pointY = useMotionValue(0);
@@ -114,6 +124,7 @@ export default function Home() {
 
       let targets = document.getElementsByClassName('hoveredOver');
       let cursorFriend = document.getElementById('cursorFriend');
+
       for(let i = 0; i < targets.length; i++) {
         targets[i].addEventListener("mouseover", () => {
           cursorFriend?.classList.add("hovered");
@@ -122,7 +133,9 @@ export default function Home() {
           cursorFriend?.classList.remove("hovered");
         });
       }
-      
+
+      setLoading("loaded");
+
       return () => {
         document.removeEventListener("mousemove", updadeMousePosition);
       };
@@ -208,18 +221,26 @@ export default function Home() {
     animateCLassH2 = "inactive";
   }
 
-  let showImage = (element : any ) => {
-    let target = document.getElementById(element);
-    target?.classList.add("show");
+  let openProDetails = (proname : string, content : string, image : string, stack : any[]) => {
+    let contentArr : any[] = [proname, content, image, stack];
+    let proBoxStatus = proBox;
+    setProBoxDetails(contentArr);
+
+    if ( proBoxStatus == "hide" ) {
+      setProBox("show");
+    } else {
+      setProBox("hide");
+    }
   }
 
-  let hideImage = (element : any) => {
-    let target = document.getElementById(element);
-    target?.classList.remove("show");
+  let closeProDetails = () => {
+    setProBox("hide");
   }
 
   return (
     <>
+    <div id="loaderWrapper" className={loading}><div id="loader"><h3>Loading....</h3></div></div>
+    <div id="scroll-container">
       <div id="scrollProgressWrap" className='rounded-lg'><motion.div id='scrollProgress' className="progress-bar" style={{ scaleY }} /></div>
       <div id='mainContainer'>
           <motion.div id="landingWrap" className='container mx-auto h-dvh grid grid-cols-1 content-center'>
@@ -234,19 +255,19 @@ export default function Home() {
               return(<motion.span className='headingWords' key={i} custom={headingInt} initial={initial} animate="visible" variants={variants}>{word}</motion.span>);
             })}
             </h2>
-            <motion.div id="profileImage" className='grayscale' style={{ opacity : opacity, y : moveY }}></motion.div>
+            <motion.div id="profileImage" custom={headingInt} initial={initial} animate="visible" variants={variants}></motion.div>
           </motion.div >
-          <motion.div id="aboutWrap" className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
-            <motion.div id="aboutContent" className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
+          <motion.div id="aboutWrap" ref={ref} variants={scrollVariants} animate={animateCLass} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
+            <motion.div id="aboutContent" className='w-full'>
               <h3>I am a seasoned web developer based in the vibrant city of Vancouver, BC, Canada, with a rich experience spanning over a decade in the ever-evolving digital landscape.</h3>
               <h3>My journey in the world of web development has been nothing short of exhilarating. Over the years, I’ve had the privilege of working on diverse and challenging projects that have not only honed my skills but also fueled my passion for creating seamless and visually appealing online experiences. Vancouver’s dynamic tech scene has provided me with the perfect backdrop to thrive, inspiring me to push myself beyond my comfort zone and grow.</h3>
             </motion.div>
-            <motion.div id="aboutSkills" className='md:w-6/12 md:justify-self-end' ref={refA} variants={scrollVariants} animate={animateCLass}>
-              <h4>My Skills</h4>
+            <motion.div id="aboutSkills" className='md:w-6/12 md:justify-self-end'>
+              <motion.h4>My Skills</motion.h4>
               <ul className='grid gap-4 grid-cols-2'>
               {skillsList.map((skill, i) => {
                 const refA = useRef(null);
-                const isInView = useInView(refA, { once: true, amount : 0.5 });
+                const isInView = useInView(refA, { once: true, amount : aniAmout });
 
                 let viewCLass, animateCLass;
                   
@@ -265,7 +286,7 @@ export default function Home() {
           <motion.h2 ref={refH2} variants={scrollVariants} animate={animateCLassH2}>Recent Work</motion.h2>
           {projectList.map((project, i) => {
                     const ref = useRef(null);
-                    const isInView = useInView(ref, { once: true, amount : 1 });
+                    const isInView = useInView(ref, { once: true, amount : aniAmout });
                     let techStack = project.tech;
 
                     const variants = {
@@ -301,26 +322,20 @@ export default function Home() {
 
                     return(
                       <>
-                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass} onMouseMove={() => showImage(`proImage${i}`)} onMouseLeave={() => hideImage(`proImage${i}`)} onClick={() => window.open(project.link)}>
-                            <div><h4>{project.method}</h4>
-                            <h3>{project.name}</h3></div>
+                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass}>
+                            <div>
+                              <h4>{project.method}</h4>
+                              <h3>{project.name}</h3>
+                            </div>
                             <div><h5><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></h5></div>
-                        </motion.div>
-                        <motion.div id={`proImage${i}`} className="bgImageHover" style={proParentStyles}><div className="bgImageHoverImage" style={styles}></div>
-                         <div className='proDetails'>
-                            <ul>
-                            {techStack.map((tech, i) => {
-                              headingInt++;
-                              return(<li key={i} className='shadow-lg'>{tech}</li>);
-                            })}
-                            </ul>
-                          </div>
                         </motion.div>
                         </>
                     );
                 })}
           </BuildSection>
+        </div>
       </div>
+      <LinkedinRecommend />
       </>
   )
 }

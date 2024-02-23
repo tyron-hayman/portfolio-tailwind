@@ -1,7 +1,7 @@
 // Branding
 $black      : #131313;
 $grey       : rgba(255,255,255,0.3);
-$white      : #ffffff;
+$white      : #d9d9d9;
 $cream      : #edf2f4;
 $red        : #ff5454;
 $blueLight  : #a8dadc;
@@ -59,6 +59,32 @@ $blueDark   : #2b2d42;
 }
 
 // Keyframes
+
+@keyframes rotation {
+    0% {
+        transform: rotateZ('0deg');
+        -webkit-transform: rotateZ('0deg');
+        -moz-transform: rotateZ('0deg');
+    }
+    100% {
+        transform: rotateZ('360deg');
+        -webkit-transform: rotateZ('360deg');
+        -moz-transform: rotateZ('360deg');
+    }
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        transform: rotateZ('0deg');
+        -webkit-transform: rotateZ('0deg');
+        -moz-transform: rotateZ('0deg');
+    }
+    100% {
+        transform: rotateZ('360deg');
+        -webkit-transform: rotateZ('360deg');
+        -moz-transform: rotateZ('360deg');
+    }
+}
 
 @keyframes proScale {
     0% {
@@ -173,3 +199,4 @@ $blueDark   : #2b2d42;
         background-position: -10% 10%
     }
 }
+

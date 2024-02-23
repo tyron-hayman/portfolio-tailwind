@@ -1,3 +1,15 @@
+@keyframes rotation {
+  0% {
+    transform: rotateZ("0deg");
+    -webkit-transform: rotateZ("0deg");
+    -moz-transform: rotateZ("0deg");
+  }
+  100% {
+    transform: rotateZ("360deg");
+    -webkit-transform: rotateZ("360deg");
+    -moz-transform: rotateZ("360deg");
+  }
+}
 @keyframes proScale {
   0% {
     transform: scale(1.1);
