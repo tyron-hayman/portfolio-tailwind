@@ -62,7 +62,7 @@ export default function LinkedinRecommend() {
         <div id="linkedinRecommend">
             <motion.h2 ref={refH} variants={scrollVariants} animate={animateCLassH}>What some amazing peopel say</motion.h2>
             <motion.h3 ref={refH} variants={scrollVariants} animate={animateCLassH}>Curious about what it's like to work with me? My past clients and colleagues know best!</motion.h3>
-            <motion.div className='container mx-auto grid gap-4 grid-cols-1 md:grid-cols-2'>
+            <motion.div className='container mx-auto grid gap-4 grid-cols-1 lg:grid-cols-2'>
                 {testimonials.map((testimonial, i) => {
 
                 const ref = useRef(null);

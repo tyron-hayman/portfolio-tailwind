@@ -75,7 +75,7 @@ p, li {
 
 html, body {
   scroll-behavior: smooth;
-  background: #131313;
+  background: #0c0c0c;
   scroll-behavior: smooth;
 }
 
@@ -98,7 +98,7 @@ body {
   top: 0;
   right: 0;
   z-index: 100;
-  background: #131313;
+  background: #0c0c0c;
   display: flex;
 }
 #loaderWrapper.loaded {
@@ -148,7 +148,7 @@ body {
   color: #d9d9d9;
   opacity: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   #cursorFriend {
     display: none;
   }
@@ -174,7 +174,7 @@ body {
   top: 40%;
   content: "Thank You";
   font-size: 0.8rem;
-  color: #131313;
+  color: #0c0c0c;
   opacity: 1;
 }
 
@@ -232,11 +232,11 @@ body {
 }
 #header #mainNav a:hover {
   background: #d9d9d9;
-  color: #131313;
+  color: #0c0c0c;
 }
 #header #mainNav a.active {
   background: #d9d9d9;
-  color: #131313;
+  color: #0c0c0c;
 }
 
 #footer-wrap {
@@ -296,7 +296,7 @@ body {
   transform-origin: 0%;
   -webkit-transform-origin: 0%;
 }
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   #scrollProgressWrap {
     display: none;
   }
@@ -309,6 +309,7 @@ body {
 @media (max-width: 600px) {
   #landingWrap {
     text-align: center;
+    height: 500px;
   }
 }
 #landingWrap h1 {
@@ -334,7 +335,7 @@ body {
 }
 @media (max-width: 600px) {
   #landingWrap h1 {
-    margin-top: 200px;
+    margin-top: 350px;
     font-size: 8rem;
   }
 }
@@ -383,10 +384,10 @@ body {
   left: 55%;
   top: 25%;
   z-index: 1;
-  transition: all 0.1s;
-  -webkit-transition: all 0.1s;
-  -moz-transition: all 0.1s;
-  -o-transition: all 0.1s;
+  transition: transform 0.1s;
+  -webkit-transition: transform 0.1s;
+  -moz-transition: transform 0.1s;
+  -o-transition: transform 0.1s;
 }
 @media (max-width: 1200px) {
   #profileImage {
@@ -402,7 +403,7 @@ body {
 }
 @media (max-width: 600px) {
   #profileImage {
-    top: 180px;
+    top: 150px;
     left: 25%;
     width: 200px;
     height: 200px;
@@ -430,11 +431,8 @@ body {
 }
 @media (max-width: 600px) {
   #aboutWrap {
-    padding-left: 2.5%;
-    padding-right: 2.5%;
-  }
-  #aboutWrap ul {
-    margin-left: 25px;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 #aboutWrap h3 {
@@ -458,7 +456,18 @@ body {
   text-transform: uppercase;
 }
 #aboutWrap li {
-  list-style: numeral;
+  list-style: none;
+}
+#aboutWrap li svg {
+  margin-right: 5px;
+  width: 20px;
+  height: auto;
+}
+@media (max-width: 600px) {
+  #aboutWrap li {
+    display: block;
+    margin-bottom: 10px;
+  }
 }
 
 #projectsWrap {
@@ -469,8 +478,8 @@ body {
 }
 @media (max-width: 600px) {
   #projectsWrap {
-    padding-left: 2.5%;
-    padding-right: 2.5%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 #projectsWrap h1 {
@@ -498,13 +507,13 @@ body {
   font-size: 4rem;
   line-height: 4rem;
   color: #d9d9d9;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   transition: all 0.35s ease-in-out;
   -webkit-transition: all 0.35s ease-in-out;
   -moz-transition: all 0.35s ease-in-out;
   -o-transition: all 0.35s ease-in-out;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 #projectsWrap h4 {
   font-size: 1.5rem;
@@ -514,34 +523,33 @@ body {
   -webkit-transition: all 0.35s ease-in-out;
   -moz-transition: all 0.35s ease-in-out;
   -o-transition: all 0.35s ease-in-out;
+  position: relative;
+  z-index: 2;
 }
 #projectsWrap h5 {
   font-size: 1.5rem;
   line-height: 1;
   color: rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
 }
 #projectsWrap .projectBoxes {
   border-top: rgba(255, 255, 255, 0.3) 1px solid;
   position: relative;
-  z-index: 2;
-  padding: 50px 0;
+  z-index: 1;
+  padding: 50px 1.5%;
   display: flex;
   flex-direction: wrap;
   justify-content: space-between;
   align-items: center;
-  filter: blur(0px);
-  transition: filter 0.35s;
-  -webkit-transition: filter 0.35s;
-  -moz-transition: filter 0.35s;
-  -o-transition: filter 0.35s;
 }
 #projectsWrap .projectBoxes:before {
   position: absolute;
   left: 0;
-  top: 0;
-  height: 5px;
-  width: 0%;
-  background: #131313;
+  top: 50%;
+  bottom: 50%;
+  width: 100%;
+  background: #ffffff;
   transition: all 0.35s ease-out;
   -webkit-transition: all 0.35s ease-out;
   -moz-transition: all 0.35s ease-out;
@@ -550,12 +558,60 @@ body {
   content: " ";
   display: block;
 }
-#projectsWrap .projectBoxes:hover h2, #projectsWrap .projectBoxes:hover h3 {
-  color: #d9d9d9;
+@media (min-width: 900px) {
+  #projectsWrap .projectBoxes:hover h2, #projectsWrap .projectBoxes:hover h3, #projectsWrap .projectBoxes:hover h4, #projectsWrap .projectBoxes:hover h5 {
+    color: #0c0c0c !important;
+  }
+  #projectsWrap .projectBoxes:hover:before {
+    top: 0%;
+    bottom: 0%;
+  }
 }
-#projectsWrap .projectBoxes:hover:before {
-  width: 10%;
-  background: #ff5454;
+@media (min-width: 900px) {
+  #projectsWrap:hover .projectBoxes:not(:hover) {
+    filter: opacity(0.15);
+  }
+}
+
+#projectDetailsWrap {
+  position: fixed;
+  height: 300px;
+  overflow: hidden;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+#projectDetailsWrap #projectDetailsImage {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  transform: scale(1.75) rotateZ(-15deg) translateY(-10px);
+  -webkit-transform: scale(1.75) rotateZ(-15deg) translateY(-10px);
+  -moz-transform: scale(1.75) rotateZ(-15deg) translateY(-10px);
+  -o-transform: scale(1.75) rotateZ(-15deg) translateY(-10px);
+  filter: grayscale(1);
+}
+#projectDetailsWrap.hide {
+  width: 0;
+  opacity: 0;
+}
+#projectDetailsWrap.show {
+  width: 500px;
+  opacity: 1;
 }
 
 #footer-contact {
@@ -575,7 +631,8 @@ body {
 }
 @media (max-width: 980px) {
   #footer-contact h2 {
-    font-size: 8rem;
+    font-size: 7rem !important;
+    margin-top: 20px;
   }
 }
 @media (max-width: 600px) {
@@ -587,9 +644,39 @@ body {
   margin-right: 0;
   display: inline-block;
 }
+#footer-contact h2 a {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+#footer-contact h2 a:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  width: 0px;
+  height: 2px;
+  left: 50%;
+  bottom: 0;
+  background: #ff5454;
+  transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+  pointer-events: none;
+}
+#footer-contact h2 a:hover:after {
+  width: 50%;
+  left: 25%;
+}
 
 #linkedinRecommend {
   margin-bottom: 300px;
+}
+@media (max-width: 900px) {
+  #linkedinRecommend {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 #linkedinRecommend h2 {
   font-family: "Bodoni Moda", serif !important;
@@ -600,7 +687,7 @@ body {
 }
 @media (max-width: 600px) {
   #linkedinRecommend h2 {
-    font-size: 1.7rem;
+    font-size: 2rem;
     margin-bottom: 20px;
   }
 }
@@ -621,9 +708,15 @@ body {
   border: #d9d9d9 1px solid;
   padding: 15% 10% 10% 10%;
 }
+@media (max-width: 1000px) {
+  #linkedinRecommend .testimonials {
+    margin-bottom: 100px;
+  }
+}
 @media (max-width: 600px) {
   #linkedinRecommend .testimonials {
     margin-bottom: 100px;
+    padding: 25% 10% 10% 10%;
   }
 }
 #linkedinRecommend .testimonials h4 {
@@ -654,7 +747,7 @@ body {
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
   -o-background-size: cover !important;
-  border: #131313 10px solid;
+  border: #0c0c0c 10px solid;
   transition: all 0.35s ease-out;
   -webkit-transition: all 0.35s ease-out;
   -moz-transition: all 0.35s ease-out;

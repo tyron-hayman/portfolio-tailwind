@@ -4,11 +4,11 @@ import Projects from "./components/projects";
 import { motion, useTransform, stagger, animate, useInView, useScroll, useSpring, useMotionValue, useMotionTemplate  } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
 import LinkedinRecommend from './components/LinkedinRecommendation';
 import {isMobile} from 'react-device-detect';
 
-let aniAmout : any = "some";
+let aniAmout : any = 0.5;
 if (isMobile) {
   aniAmout = "some";
 }
@@ -69,16 +69,16 @@ function BuildSection({ sectionID, animateThis, onlyOnce, children }: any ) {
 
   if ( animateThis ) {
     return (
-      <div id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
-        <motion.div key={sectionID} className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass}>
+      <div id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1' key={"buildSection" + sectionID}>
+        <motion.div className='w-full' ref={ref} variants={scrollVariants} animate={animateCLass} key={sectionID}>
           {children}
         </motion.div>
       </div>
     );
   } else {
     return (
-      <div key={sectionID} id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
-        <motion.div className='w-full'>
+      <div id={sectionID} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1' key={"buildSection" + sectionID}>
+        <motion.div className='w-full' key={sectionID}>
           {children}
         </motion.div>
       </div>
@@ -95,7 +95,7 @@ export default function Home() {
 
   const hello = "h e l l o";
   const landingHeading = "I build things for the web.";
-  const skillsList = ["HTML / CSS", "JavaScript", "ReactJS / NextJS", "SCSS / Tailwind", "PHP", "WordPress"];
+  const skillsList = ["HTML / CSS", "JavaScript / TypeScript", "ReactJS / NextJS", "SCSS / Tailwind", "PHP", "WordPress"];
   const helloArr = hello.split(" ");
   const landingHeadingArr = landingHeading.split(" ");
   let headingInt = 3;
@@ -181,16 +181,17 @@ export default function Home() {
   const opacity = useTransform(
     scrollY,
     // Map x from these values:
-    [0, 500],
+    [0, 800],
     // Into these values:
     [1, 0]
-  );
+  );  
+
   const moveY = useTransform(
     scrollY,
     // Map x from these values:
-    [0, 500],
+    [0, 800],
     // Into these values:
-    [0, 250]
+    [0, 500]
   );
 
   const mouseMoveX = useTransform(
@@ -226,15 +227,18 @@ export default function Home() {
     let proBoxStatus = proBox;
     setProBoxDetails(contentArr);
 
-    if ( proBoxStatus == "hide" ) {
+    if (!isMobile) {
       setProBox("show");
-    } else {
-      setProBox("hide");
     }
+    
   }
 
   let closeProDetails = () => {
     setProBox("hide");
+  }
+
+  let openSite = (url : string) => {
+    window.open(url);
   }
 
   return (
@@ -243,7 +247,7 @@ export default function Home() {
     <div id="scroll-container">
       <div id="scrollProgressWrap" className='rounded-lg'><motion.div id='scrollProgress' className="progress-bar" style={{ scaleY }} /></div>
       <div id='mainContainer'>
-          <motion.div id="landingWrap" className='container mx-auto h-dvh grid grid-cols-1 content-center'>
+          <motion.div id="landingWrap" className='container mx-auto md:h-dvh grid grid-cols-1 content-center'>
             <h1>
             {helloArr.map((word, i) => {
               return(<motion.span className='headingWords' key={i} custom={i} initial={initial} animate="visible" variants={variants}>{word}</motion.span>);
@@ -255,16 +259,16 @@ export default function Home() {
               return(<motion.span className='headingWords' key={i} custom={headingInt} initial={initial} animate="visible" variants={variants}>{word}</motion.span>);
             })}
             </h2>
-            <motion.div id="profileImage" custom={headingInt} initial={initial} animate="visible" variants={variants}></motion.div>
+            <motion.div id="profileImage" custom={headingInt} initial={initial} animate="visible" variants={variants} style={{ opacity : opacity }}></motion.div>
           </motion.div >
           <motion.div id="aboutWrap" ref={ref} variants={scrollVariants} animate={animateCLass} className='container mx-auto min-h-full flex items-center grid gap-4 grid-cols-1'>
             <motion.div id="aboutContent" className='w-full'>
               <h3>I am a seasoned web developer based in the vibrant city of Vancouver, BC, Canada, with a rich experience spanning over a decade in the ever-evolving digital landscape.</h3>
               <h3>My journey in the world of web development has been nothing short of exhilarating. Over the years, I’ve had the privilege of working on diverse and challenging projects that have not only honed my skills but also fueled my passion for creating seamless and visually appealing online experiences. Vancouver’s dynamic tech scene has provided me with the perfect backdrop to thrive, inspiring me to push myself beyond my comfort zone and grow.</h3>
             </motion.div>
-            <motion.div id="aboutSkills" className='md:w-6/12 md:justify-self-end'>
+            <motion.div id="aboutSkills" className='md:w-8/12 lg:w-6/12 md:justify-self-end'>
               <motion.h4>My Skills</motion.h4>
-              <ul className='grid gap-4 grid-cols-2'>
+              <ul className='md:grid gap-4 grid-cols-2'>
               {skillsList.map((skill, i) => {
                 const refA = useRef(null);
                 const isInView = useInView(refA, { once: true, amount : aniAmout });
@@ -277,7 +281,7 @@ export default function Home() {
                     animateCLass = "inactive";
                 }
 
-                return(<motion.li key={i} custom={headingInt} ref={refA} variants={scrollVariants} animate={animateCLass}>{skill}</motion.li>);
+                return(<motion.li key={i} custom={headingInt} ref={refA} variants={scrollVariants} animate={animateCLass}><FontAwesomeIcon icon={faCircleArrowRight} /> {skill}</motion.li>);
               })}
               </ul>
             </motion.div>
@@ -322,7 +326,7 @@ export default function Home() {
 
                     return(
                       <>
-                        <motion.div key={i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass}>
+                        <motion.div key={`projectBoxes` + i} ref={ref} className={viewCLass} variants={variants} animate={animateCLass} onMouseEnter={() => openProDetails(project.name, project.content, project.image, techStack)} onMouseLeave={() => closeProDetails()} onClick={() => openSite(project.link)}>
                             <div>
                               <h4>{project.method}</h4>
                               <h3>{project.name}</h3>
@@ -336,6 +340,13 @@ export default function Home() {
         </div>
       </div>
       <LinkedinRecommend />
+      <motion.div id="projectDetailsWrap" className={`${proBox} rounded-lg shadow-md`} style={{
+        transform: pointTransform
+      }}>
+        <div id="projectDetailsImage" style={{
+          background : 'url(' + proBoxDetails[2] + ') center center no-repeat'
+        }}></div>
+      </motion.div>
       </>
   )
 }

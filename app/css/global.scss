@@ -90,7 +90,7 @@ body {
         color: $white;
         opacity: 0;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         display: none;
     }
     &.hovered {
@@ -221,7 +221,7 @@ body {
         transform-origin: 0%;
         -webkit-transform-origin: 0%;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         display: none;
     }
 }
@@ -233,6 +233,7 @@ body {
     z-index: 2;
     @media (max-width: 600px) {
         text-align: center;
+        height: 500px;
     }
     h1 {
         font-family: 'Bodoni Moda', serif!important;
@@ -251,7 +252,7 @@ body {
             font-size: 15rem;
         }
         @media (max-width: 600px) {
-            margin-top: 200px;
+            margin-top: 350px;
             font-size: 8rem;
         }
         span {
@@ -291,7 +292,7 @@ body {
     left: 55%;
     top: 25%;
     z-index: 1;
-    @include transition(all 0.1s);
+    @include transition(transform 0.1s);
     @media (max-width: 1200px) {
         width: 500px;
         height: 500px;
@@ -301,7 +302,7 @@ body {
         height: 400px;
     }
     @media (max-width: 600px) {
-        top: 180px;
+        top: 150px;
         left: 25%;
         width: 200px;
         height: 200px;
@@ -323,11 +324,8 @@ body {
 #aboutWrap {
     margin-top: 300px;
     @media (max-width: 600px) {
-        padding-left: 2.5%;
-        padding-right: 2.5%;
-        ul {
-            margin-left: 25px;
-        }
+        padding-left: 5%;
+        padding-right: 5%;
     }
     h3 {
         font-size: 1.5rem;
@@ -348,7 +346,16 @@ body {
         text-transform: uppercase;
     }
     li {
-        list-style: numeral;
+        list-style: none;
+        svg {
+            margin-right: 5px;
+            width: 20px;
+            height: auto;
+        }
+        @media (max-width: 600px) {
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 }
 
@@ -361,8 +368,8 @@ body {
     margin-top: 300px;
     margin-bottom: 300px;
     @media (max-width: 600px) {
-        padding-left: 2.5%;
-        padding-right: 2.5%;
+        padding-left: 5%;
+        padding-right: 5%;
     }
     h1 {
         font-size: 5rem;
@@ -391,54 +398,95 @@ body {
         font-size: 4rem;
         line-height: 4rem;
         color: $white;
-        margin-bottom: 30px;
+        margin-bottom: 0px;
         @include transition(all 0.35s ease-in-out);
         position: relative;
-        z-index: 1;
+        z-index: 2;
     }
     h4 {
         font-size: 1.5rem;
         line-height: 1;
         color: $grey;
         @include transition(all 0.35s ease-in-out);
+        position: relative;
+        z-index: 2;
     }
     h5 {
         font-size: 1.5rem;
         line-height: 1;
         color: $grey;
+        position: relative;
+        z-index: 1;
     }
     .projectBoxes {
         border-top: $grey 1px solid;
         position: relative;
-        z-index: 2;
-        padding: 50px 0;
+        z-index: 1;
+        padding: 50px 1.5%;
         display: flex;
         flex-direction: wrap;
         justify-content: space-between;
         align-items: center;
-        filter: blur(0px);
-        @include transition(filter 0.35s);
         &:before {
             position: absolute;
             left: 0;
-            top: 0;
-            height: 5px;
-            width: 0%;
-            background: $black;
+            top: 50%;
+            bottom: 50%;
+            width: 100%;
+            background: #ffffff;
             @include transition(all 0.35s ease-out);
             z-index: 0;
             content: "\00a0";
             display: block;
         }
-        &:hover {
-            h2, h3 {
-                color: $white;
-            }
-            &:before {
-                width: 10%;
-                background: $red;
+        @media (min-width: 900px) {
+            &:hover {
+                h2, h3, h4, h5 {
+                    color: $black!important;
+                }
+                &:before {
+                    top: 0%;
+                    bottom: 0%;
+                }
             }
         }
+    }
+    @media (min-width: 900px) {
+        &:hover .projectBoxes:not(:hover) {
+            filter: opacity(0.15);
+        }
+    }
+}
+
+#projectDetailsWrap {
+    position: fixed;
+    height: 300px;
+    overflow: hidden;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    @include transition(all 0.3s ease-out);
+    pointer-events: none;
+    #projectDetailsImage {
+        position: absolute;
+        width: 500px;
+        height: 300px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        @include backgroundSize(cover!important);
+        @include transform(scale(1.75) rotateZ(-15deg) translateY(-10px));
+        filter: grayscale(1);
+    }
+    &.hide {
+        width: 0;
+        opacity: 0;
+    }
+    &.show {
+        width: 500px;
+        opacity: 1;
     }
 }
 
@@ -458,7 +506,8 @@ body {
         margin: 0;
         padding: 0;
         @media (max-width: 980px) {
-            font-size: 8rem;
+            font-size: 7rem!important;
+            margin-top: 20px;
         }
         @media (max-width: 600px) {
             font-size: 7rem;
@@ -467,6 +516,29 @@ body {
             margin-right: 0;
             display: inline-block;
         }
+        a {
+            position: relative;
+            display: block;
+            width: 100%;
+            &:after {
+                position: absolute;
+                content: "\00a0";
+                display: block;
+                width: 0px;
+                height: 2px;
+                left: 50%;
+                bottom: 0;
+                background: $red;
+                @include transition(all 0.35s ease-in-out);
+                pointer-events: none;
+            }
+            &:hover {
+                &:after {
+                    width: 50%;
+                    left: 25%;
+                }
+            }
+        }
     }
 }
 
@@ -474,6 +546,10 @@ body {
 
 #linkedinRecommend {
     margin-bottom: 300px;
+    @media (max-width: 900px) {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
     h2 {
         font-family: 'Bodoni Moda', serif!important;
         font-weight: 400;
@@ -481,7 +557,7 @@ body {
         text-align: center;
         color: $white;
         @media (max-width: 600px) {
-            font-size: 1.7rem;
+            font-size: 2rem;
             margin-bottom: 20px;
         }
     }
@@ -499,8 +575,12 @@ body {
         position: relative;
         border: $white 1px solid;
         padding: 15% 10% 10% 10%;
+        @media (max-width: 1000px) {
+            margin-bottom: 100px;
+        }
         @media (max-width: 600px) {
             margin-bottom: 100px;
+            padding: 25% 10% 10% 10%;
         }
         h4 {
             font-weight: 1000;
